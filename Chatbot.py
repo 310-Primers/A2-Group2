@@ -75,6 +75,7 @@ while True:
         
     except(KeyError):
         print("Doh! I don't seem to understand.I hope I can get more intelligent by the next update. Please try asking me something else.")
+        print("Please ensure you put the right punctuation if you are asking me a question. Check for (? or ')")
     except(KeyboardInterrupt, EOFError, SystemExit):
         break
 
