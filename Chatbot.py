@@ -1,14 +1,14 @@
 import random
+from Prequestions import questions
 
-
-class Chatbot():
+class Chatbot:
     def __init__(self, name):
         self.name = name
 a = Chatbot("Harvie")
-
+#M = questions()
 def getResponse(question):
     possible_questions = {
-        "Hello": "Hi, my My name is Harvie, a MovieBot. I love films. I love to talk about movies, tv shows and celebrities.",
+        "Hello": "Hi, My name is Harvie, a MovieBot. I love films. I love to talk about movies, tv shows and celebrities.",
         "Who are you?":"My name is Harvie, a MovieBot. I love films. I love to talk about movies, tv shows and celebrities.",
         "Are you a human?":"No, unfortunately, I am a program that just spits out a bunch of prefixed responses. For now…",
         "How old are you?":"Time and age is just a relative concept…",
@@ -37,23 +37,46 @@ def getResponse(question):
         "Who's your favourite superhero?": "Ironman",
         "Who's your favourite villain?":"The Joker",
         "Are movies dying?": "Of course not, they're getting better than before",
-        "What's your favourite scene?": "When HAL lip reads what the astronauts say in the capsule. Goosebumps.",
-        "Ask me a question": "askQuestion"
+        "Where can I watch movies?" : ["In the cinemas", "Netflix", "Hulu", "Paramount+", "Disney+", "PrimeVideo", "YouTube", "AppleTV+"],
+        "What's your favourite scene?": "When HAL lip reads what the astronauts say in the capsule. Goosebumps."
     }
-    return possible_questions[question]
+    possible_questions_lower = {k.lower():v for k,v in possible_questions.items()}
+    return possible_questions_lower[question]
 
+bot_input = ""
 while True:
     try:
         bot_input = input("You: ")
-        bot_response = getResponse(bot_input)
-        
-        if isinstance(bot_response,list) == False:
+        bot_input = bot_input.lower()
+
+        if bot_input == "bye" or bot_input == "exit":
+            print("Thank you for using MovieBot. Have a nice day!")
+            break
+    
+        if bot_input == "ask me a question":
+            bot_response = questions.getquestion()
             print(f"{a.name}: {bot_response}")
+            bot_input = input("You: ").lower()
+            Goodresponses = ["Great", "Awesome!", "Amazing!", "Brilliant!", "Fantastic!"]
+            Badresponses = ["Uh oh!", "That's not good!", "That is sad!", "Sorry about that!", "Hmmm!"]
+            if "no" not in bot_input and "n't" not in bot_input and "not" not in bot_input and "none" not in bot_input and "nothing" not in bot_input:
+                randIndex = random.randint(0, len(Goodresponses)-1)
+                print(f"{a.name}: {Goodresponses[randIndex]}")
+            else:
+                randIndex = random.randint(0, len(Badresponses)-1)
+                print(f"{a.name}: {Badresponses[randIndex]}")
         else:
-            randIndex = random.randint(0, len(bot_response)-1)
-            print(f"{a.name}: {bot_response[randIndex]}")
+            bot_response = getResponse(bot_input) 
+            if isinstance(bot_response,list) == False:
+                print(f"{a.name}: {bot_response}")
+            else:
+                randIndex = random.randint(0, len(bot_response)-1)
+                print(f"{a.name}: {bot_response[randIndex]}")
+        
+        
     except(KeyError):
         print("Doh! I don't seem to understand.I hope I can get more intelligent by the next update. Please try asking me something else.")
+        print("Please ensure you put the right punctuation if you are asking me a question. Check for (? or ')")
     except(KeyboardInterrupt, EOFError, SystemExit):
         break
 
