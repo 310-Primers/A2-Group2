@@ -37,6 +37,7 @@ def getResponse(question):
         "Who's your favourite superhero?": "Ironman",
         "Who's your favourite villain?":"The Joker",
         "Are movies dying?": "Of course not, they're getting better than before",
+        "Where can I watch movies?" : ["In the cinemas", "Netflix", "Hulu", "Paramount+", "Disney+", "PrimeVideo", "YouTube", "AppleTV+"],
         "What's your favourite scene?": "When HAL lip reads what the astronauts say in the capsule. Goosebumps."
     }
     possible_questions_lower = {k.lower():v for k,v in possible_questions.items()}
