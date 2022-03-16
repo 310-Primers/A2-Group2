@@ -1,5 +1,8 @@
 import random
 from Prequestions import questions
+import stanza
+
+nlp = stanza.Pipeline(lang = "en", processors = "tokenize,ner")
 
 class Chatbot:
     def __init__(self, name):
@@ -44,15 +47,18 @@ def getResponse(question):
     return possible_questions_lower[question]
 
 bot_input = ""
+
 while True:
     try:
         bot_input = input("You: ")
-        bot_input = bot_input.lower()
-
+        bot_read = nlp(bot_input)
+        tokens = [token.text for response in bot_read.sentences for token in response.tokens if "WORK_OF_ART" in token.ner ]
+        if len(tokens)>0:
+            print(*["I loved",*[f'{token}' for token in tokens]])
         if bot_input == "bye" or bot_input == "exit":
             print("Thank you for using MovieBot. Have a nice day!")
             break
-    
+        
         if bot_input == "ask me a question":
             bot_response = questions.getquestion()
             print(f"{a.name}: {bot_response}")
