@@ -1,12 +1,12 @@
 import random
 from Prequestions import questions
-#from app import ChatApplication;
+from app import *;
 
 
 
 name = "Harvie"
-msg = "Hello"
-resp = " "
+
+
 
 def getResponse(question):
     possible_questions = {
@@ -43,7 +43,7 @@ def getResponse(question):
         "What's your favourite scene?": "When HAL lip reads what the astronauts say in the capsule. Goosebumps."
     }
     possible_questions_lower = {k.lower():v for k,v in possible_questions.items()}
-    return possible_questions_lower[question]
+    return possible_questions_lower[question.lower()]
 bot_response = questions.getquestion()
 bot_input = ""
 try:

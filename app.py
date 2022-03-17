@@ -1,6 +1,6 @@
 from tkinter import *;
-from Chatbot import name;
-from Chatbot import  resp
+from Chatbot import *;
+#from Chatbot import  resp
 
 
 bg_gray = "#ABB2B9"
