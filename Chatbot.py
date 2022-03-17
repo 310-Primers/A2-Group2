@@ -2,11 +2,8 @@ import random
 from Prequestions import questions
 from app import *;
 
-
-
 name = "Harvie"
-
-
+resp = ""
 
 def getResponse(question):
     possible_questions = {
@@ -43,57 +40,35 @@ def getResponse(question):
         "What's your favourite scene?": "When HAL lip reads what the astronauts say in the capsule. Goosebumps."
     }
     possible_questions_lower = {k.lower():v for k,v in possible_questions.items()}
-    return possible_questions_lower[question.lower()]
-bot_response = questions.getquestion()
-bot_input = ""
-try:
-    #print("Hello")
-    # bot_input = input("You: ")
-    # bot_input = bot_input.lower()
-
-    if msg == "bye" or msg == "exit":
-        # print("Thank you for using MovieBot. Have a nice day!")
-        resp = "Thank you for using MovieBot. Have a nice day!"
-
-
-    if msg == "ask me a question":
-
-        # print(f"{a.name}: {bot_response}")
-        # bot_input = input("You: ").lower()
-        Goodresponses = ["Great", "Awesome!", "Amazing!", "Brilliant!", "Fantastic!"]
-        Badresponses = ["Uh oh!", "That's not good!", "That is sad!", "Sorry about that!", "Hmmm!"]
-        if "no" not in msg and "n't" not in msg and "not" not in msg and "none" not in msg and "nothing" not in msg:
-            randIndex = random.randint(0, len(Goodresponses) - 1)
-            # print(f"{a.name}: {Goodresponses[randIndex]}")
+    
+    try:
+        question = question.lower()
+        if question == "bye" or question == "exit":
+            resp = "Thank you for using MovieBot. Have a nice day!"
+            SystemExit()
+        elif question == "ask me a question":
+            asked = questions.getquestion()
+            #msg2 = f"{name}:{asked}\n\n"
+            Goodresponses = ["Great", "Awesome!", "Amazing!", "Brilliant!", "Fantastic!"]
+            Badresponses = ["Uh oh!", "That's not good!", "That is sad!", "Sorry about that!", "Hmmm!"]
+            if "no" not in msg and "n't" not in msg and "not" not in msg and "none" not in msg and "nothing" not in msg:
+                randIndex = random.randint(0, len(Goodresponses) - 1)
+                resp = Goodresponses[randIndex]
+            else:
+                randIndex = random.randint(0, len(Badresponses) - 1)
+                resp = Badresponses[randIndex]
         else:
-            randIndex = random.randint(0, len(Badresponses) - 1)
-            # print(f"{a.name}: {Badresponses[randIndex]}")
-            resp = Badresponses[randIndex]
-    else:
-        # bot_response = getResponse(bot_input)
-        resp = getResponse(msg)
-        if isinstance(resp, list) == False:
-            # print(f"{a.name}: {bot_response}")
-            resp = questions.getquestion()
-        else:
-            randIndex = random.randint(0, len(bot_response) - 1)
-            resp = bot_response[randIndex]
-            # print(f"{a.name}: {bot_response[randIndex]}")
+            resp = possible_questions_lower[question]
+            if isinstance(resp, list) == False:
+                resp = resp
+            else:
+                randIndex = random.randint(0, len(resp) - 1)
+                resp = resp[randIndex]
 
+        return resp
+    except:
+        resp = "Doh! I don't seem to understand.I hope I can get more intelligent by the next update. Please try asking me something else."
+        return resp
 
-except(IndexError):
-    resp = "Doh! I don't seem to understand.I hope I can get more intelligent by the next update. Please try asking me something else."
-    # print("Doh! I don't seem to understand.I hope I can get more intelligent by the next update. Please try asking me something else.")
-    # print("Please ensure you put the right punctuation if you are asking me a question. Check for (? or ')")
-
-
-
-
-
-
-
-
-
-
-
-
+    finally:
+        return resp
