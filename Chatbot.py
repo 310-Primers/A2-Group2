@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import random
 from Prequestions import questions
 from app import *;
