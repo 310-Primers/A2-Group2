@@ -7,11 +7,12 @@ bg_gray = "#ABB2B9"
 BG_COLOR = "#17202A"
 text_color = "#EAECEE"
 msg = "Hello"
-
 font = "Helvetica 14"
 font_bold = "Helvetica 13 bold"
+previousq = ""
 
 class ChatApplication:
+
     def __init__(self):
         self.window = Tk();
         self._setup_main_window()
@@ -71,13 +72,16 @@ class ChatApplication:
     def _insert_message(self, msg,sender):
         if not msg:
             return
+        
         self.msg_entry.delete(0, END)
-        msg1 = f"{sender}:{msg}\n\n"
+        msg1 = f"{sender}: {msg}\n\n"
         self.text_widget.configure( state=NORMAL)
         self.text_widget.insert(END, msg1)
         self.text_widget.configure(state=DISABLED)
 
-        msg2 = f"{name}:{getResponse(msg)}\n\n"
+        global previousq
+        msg2 = f"{name}: {getResponse(msg, previousq)}\n\n"
+        previousq = msg
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, msg2)
         self.text_widget.configure(state=DISABLED)

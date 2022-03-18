@@ -1,11 +1,16 @@
+import imp
 import random
+from typing import final
 from Prequestions import questions
-from app import *;
+from app import *
+from NerStanza import *
 
 name = "Harvie"
 resp = ""
 
-def getResponse(question):
+
+def getResponse(question, pq):
+
     possible_questions = {
         "Hello": "Hi, My name is Harvie, a MovieBot. I love films. I love to talk about movies, tv shows and celebrities.",
         "Who are you?":"My name is Harvie, a MovieBot. I love films. I love to talk about movies, tv shows and celebrities.",
@@ -43,27 +48,30 @@ def getResponse(question):
     
     try:
         question = question.lower()
+        pq = pq.lower()
         if question == "bye" or question == "exit":
-            resp = "Thank you for using MovieBot. Have a nice day!"
-            SystemExit()
-        elif question == "ask me a question":
-            asked = questions.getquestion()
-            #msg2 = f"{name}:{asked}\n\n"
-            Goodresponses = ["Great", "Awesome!", "Amazing!", "Brilliant!", "Fantastic!"]
-            Badresponses = ["Uh oh!", "That's not good!", "That is sad!", "Sorry about that!", "Hmmm!"]
-            if "no" not in msg and "n't" not in msg and "not" not in msg and "none" not in msg and "nothing" not in msg:
-                randIndex = random.randint(0, len(Goodresponses) - 1)
-                resp = Goodresponses[randIndex]
+            resp = "Thank you for using MovieBot. Have a nice day!" 
+        elif question == "ask me a question" or pq == "ask me a question":         
+            if pq == "ask me a question":
+                Goodresponses = ["Great", "Awesome!", "Amazing!", "Brilliant!", "Fantastic!"]
+                Badresponses = ["Uh oh!", "That's not good!", "That is sad!", "Sorry about that!", "Hmmm!"]
+                if "no" not in question and "n't" not in question and "not" not in question and "none" not in question and "nothing" not in question:
+                    randIndex = random.randint(0, len(Goodresponses) - 1)
+                    resp = Goodresponses[randIndex]
+                else:
+                    randIndex = random.randint(0, len(Badresponses) - 1)
+                    resp = Badresponses[randIndex]
             else:
-                randIndex = random.randint(0, len(Badresponses) - 1)
-                resp = Badresponses[randIndex]
-        else:
+                resp = questions.getquestion()
+        elif(question in possible_questions_lower):
             resp = possible_questions_lower[question]
             if isinstance(resp, list) == False:
                 resp = resp
             else:
                 randIndex = random.randint(0, len(resp) - 1)
                 resp = resp[randIndex]
+        else:
+           resp = processinput(question)
 
         return resp
     except:
