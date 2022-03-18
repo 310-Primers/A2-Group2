@@ -2,19 +2,20 @@ from urllib.request import ProxyHandler
 from nltk.corpus import wordnet as wn
 from Chatbot import *
 
+
 synonyms = []
 antonyms = []
 
 
 
-def detectsyn(word):
-    for syn in wn.synsets(word):
-        for w in syn.lemmas():
-            synonyms.append(w.name())
-        if w.antonyms():
-            antonyms.append(w.antonyms()[0].name())
-
-    print(set(synonyms))
+def detectsyn(words):
+    for word in words:
+        for syn in wn.synsets(word):
+            for w in syn.lemmas():
+                synonyms.append(w.name())
+    
+    
+    return synonyms
 
 
 detectsyn("phrase")

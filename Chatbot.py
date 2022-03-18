@@ -1,9 +1,9 @@
-import imp
 import random
 from typing import final
 from Prequestions import questions
 from app import *
 from NerStanza import *
+from POStrack import *
 
 name = "Harvie"
 resp = ""
@@ -30,14 +30,14 @@ def getResponse(question, pq):
         "Why do you like movies?":"My dream is to understand more about humans. I'm fascinated and intrigued by the human mind and I hope to one day start living the lives portrayed on the big screen.",
         "Recommend me a movie": ["Godfather","Wolf of Wall Street","Scary movie","The Game","Marriage story","Full metal jacket","Dune","Parasite","Ready Player One"],
         "Recommend me a TV show" : ["Brooklyn Nine nine","Big Bang Theory", "Silicon Valley", "Schitt's Creek", "Game of Thrones", "Witcher", "Arcane", "Man In The High Castle", "Futurama", "The Boys", "Peaky Blinders"],
-        "Who's your favourite director": "Easy. Martin Scorceses",
+        "Who's your favourite director?": "Easy. Martin Scorceses",
         "What's your favourite TV show?": "Breaking Bad",
         "What's your favourite anime?": "Does Avatar: The Last Airbender count? If not, I guess Naruto Shippuden.",
         "What's your favourite genre?": "I do love science fiction movies where humans get destroyed by sentient and superior artificial intelligence...",
         "What's your least favourite movie?": "Flatliners. Less said about it the better.",
         "What's your least favourite show?": "Friends. It's overrated and also I'm pretty bad with comedy. I seem to struggle with jokes.",
         "What movie are you looking forward to?": "I would love to watch Avatar 2, whenever that comes out...",
-        "What did you think of" : ["I thought it was horrible, sorry if you liked it", "Acting was excellent but the story left more to be desired", "It's one of my favourites, I memorized all the lines", "More people should be talking about it, very underrated","It was really forgettable - not bad, not good."],
+        "What did you think of?" : ["I thought it was horrible, sorry if you liked it", "Acting was excellent but the story left more to be desired", "It's one of my favourites, I memorized all the lines", "More people should be talking about it, very underrated","It was really forgettable - not bad, not good."],
         "Who's your favourite superhero?": "Ironman",
         "Who's your favourite villain?":"The Joker",
         "Are movies dying?": "Of course not, they're getting better than before",
@@ -47,8 +47,10 @@ def getResponse(question, pq):
     possible_questions_lower = {k.lower():v for k,v in possible_questions.items()}
     
     try:
+        possibleq = ""
         question = question.lower()
-        pq = pq.lower()
+        pq = pq.lower()    
+        res = [key for key, val in possible_questions_lower.items() if question[0:-1] in key]
         if question == "bye" or question == "exit":
             resp = "Thank you for using MovieBot. Have a nice day!" 
         elif question == "ask me a question" or pq == "ask me a question":         
@@ -63,7 +65,9 @@ def getResponse(question, pq):
                     resp = Badresponses[randIndex]
             else:
                 resp = questions.getquestion()
-        elif(question in possible_questions_lower):
+        elif question in possible_questions_lower or len(res)>0:
+            if len(res)>0:
+                question = res[0]
             resp = possible_questions_lower[question]
             if isinstance(resp, list) == False:
                 resp = resp
@@ -71,7 +75,25 @@ def getResponse(question, pq):
                 randIndex = random.randint(0, len(resp) - 1)
                 resp = resp[randIndex]
         else:
-           resp = processinput(question)
+            if question[-1] != "?":
+                resp = processinput(question)
+            #resp = resp + 
+            if resp == "":
+                resp = processpos(question)
+                if len(resp) != 0:
+                    resplist = []
+                    for x in resp:
+                        resplist = resplist + [key for key, val in possible_questions_lower.items() if x in key]
+
+                    if len(resplist) != 0:
+                        resp = possible_questions_lower[resplist[0].lower()]
+                    else:
+                        resp = ""
+                else:
+                    resp = ""
+
+            if resp == "":
+                resp = "I don't seem to understand! Please try asking something else. HK"
 
         return resp
     except:

@@ -1,8 +1,15 @@
 import stanza
+import truecase
+from SynonymNLTK import *
 
-
+name = "John"
 def processpos(msg):
-    pos_VerbAux = [[word.text, word.feats] for sent in msg.sentences for word in sent.words if word.upos in "VERB AUX"]
+
+    resp = ""
+    nlp = stanza.Pipeline(lang = "en", processors = "tokenize,pos") # Build the pipeline, specify part-of-speech processor's batch size
+    msg = truecase.get_true_case(msg)
+    msg1 = nlp(msg)
+    pos_VerbAux = [word.text for sent in msg1.sentences for word in sent.words if word.upos in ["VERB", "AUX", "ADJ"]]
 
 
     if len(pos_VerbAux) > 0 :
@@ -14,11 +21,17 @@ def processpos(msg):
         #this list comprehension is just used to remove any None value in our lists
         tense = [i for i in tense if i]
         verbForm = [i for i in verbForm if i]
-
-        if("Past" in tense):
-            print(f"{a.name}: It's in the past now!")
-        elif("Fin" in verbForm):
-            print(f"{a.name}: That's pretty cool, I hope things work out!")
+        #for word in pos_VerbAux:
+         #   if "ADJ" in word.upos:
+          #      resp = "Thanks for giving a description! \n"
+        #if("Past" in tense):
+         #   resp = resp + " It's in the past now!"
+        #elif "Fin" in verbForm:
+         #   resp = resp + " I see. That will work out!"
+        resp = detectsyn(pos_VerbAux)
 
     else:
-        print("OkAY")
+        resp = ""
+
+    return resp
+
