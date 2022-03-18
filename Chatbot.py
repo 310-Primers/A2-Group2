@@ -1,8 +1,11 @@
 import random
+
+from importlib_metadata import NullFinder
 from Prequestions import questions
 import stanza
+import re
 
-nlp = stanza.Pipeline(lang = "en", processors = "tokenize,ner")
+nlp = stanza.Pipeline(lang = "en", processors = "tokenize,ner,pos")
 
 class Chatbot:
     def __init__(self, name):
@@ -52,9 +55,40 @@ while True:
     try:
         bot_input = input("You: ")
         bot_read = nlp(bot_input)
-        tokens = [token.text for response in bot_read.sentences for token in response.tokens if "WORK_OF_ART" in token.ner ]
-        if len(tokens)>0:
-            print(*["I loved",*[f'{token}' for token in tokens]])
+        
+
+        #named entity recognition can be used to recognize if user is talking about a work of art (e.g "The Matrix") note: for this the response can not be entirely lower case
+
+        #these list comprehensions work by first breaking the users input into sentences and then into words/tokens, if the token/words then have a ner attribute or upos attribute 
+        #that token/word's text (and possibly its features) are stored in the list
+        ner_workOfArt = [token.text for response in bot_read.sentences for token in response.tokens if "WORK_OF_ART" in token.ner ]
+ 
+        pos_VerbAux = [[word.text, word.feats] for sent in bot_read.sentences for word in sent.words if word.upos in "VERB AUX"]
+
+        #we can use the POS tagging to find out if user is speaking in past future tense and allow our bot to give a generic response based 
+        if len(pos_VerbAux) > 0 :
+
+            #these list comprehension is used to extract the tense or verb form from the features(.feats) attribute from every item where "Tense=" or "VerbForm=" is in the list
+            tense = [word[word.find("Tense")+6:word.find("Tense")+10] if "Tense=" in word  else None for word in [item[1] for item in pos_VerbAux]]
+            verbForm = [word[word.find("VerbForm")+9: word.find("VerbForm")+12]  if "VerbForm=" in word else None for word in [item[1] for item in pos_VerbAux]]
+            
+
+            #this list comprehension is just used to remove any None value in our lists
+            tense = [i for i in tense if i]
+            verbForm = [i for i in verbForm if i]
+           
+            if("Past" in tense):
+                print(f"{a.name}: It's in the past now!")
+            elif("Fin" in verbForm):
+                print(f"{a.name}: That's pretty cool, I hope things work out!")
+       
+        else:
+            print("OkAY")
+        bot_input = bot_input.lower()
+        if len(ner_workOfArt)>0:
+            print(*[f"{a.name}: I loved",*[f'{token}' for token in ner_workOfArt]])
+        
+        
         if bot_input == "bye" or bot_input == "exit":
             print("Thank you for using MovieBot. Have a nice day!")
             break
