@@ -32,13 +32,16 @@ The chatbot is able to take user input and give back answers. However each word 
 
 
 It does manage to answer the same question regardless of the casing.
+
 ![image](https://user-images.githubusercontent.com/45835101/159102897-e7f26b04-b109-4d82-8b6c-6080bf55aed6.png)
 
 
 If there is an unexpected input, it is able to return a default message.
+
 ![image](https://user-images.githubusercontent.com/45835101/159102914-9e01609d-7b8d-44db-8de0-fe1a93d18812.png)
 
 Once done all the user has to type is `exit` for chatbot to terminate.
+
 ![image](https://user-images.githubusercontent.com/45835101/159102958-bdc379f5-b278-4882-baa5-808fb2f690fc.png)
 
 ## Looking ahead
