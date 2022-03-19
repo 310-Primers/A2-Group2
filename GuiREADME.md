@@ -28,7 +28,7 @@ this class stores a list of questions, and our bot will randomly pick one and ou
 
 
 ### Nerstanza and POStrack
-An api we used to dind out if the user is typing in past tense or present tesnse
+An api we used to find out if the user is typing in past tense or present tesnse
 
 ### NLTK
 An api we used to detect synonyms of the words, the bot should be able to understand a word if its a synonym of a word it currently knows
