@@ -17,12 +17,21 @@ Note: You will need to have Python installed on your local machine, we recommend
 ### Chatbot
 for now the chatbot is a simple class that saves that creates an object with a name as its only attribute to identify our chatbot.
 
+### App
+contains the Gui implementation of the bot
+
 ### getResponse
 takes the user's input (as lowercase) and tries to identify a similar string as in a dictionary of possible questions. If it matches a key, the coressponding value (the pre-written answer to the question) is returned. If not, a key error is returned and handled. the use
 
 ### questions
 this class stores a list of questions, and our bot will randomly pick one and output it to terminal when the user inputs "ask me a question".
 
+
+### Nerstanza and POStrack
+An api we used to dind out if the user is typing in past tense or present tesnse
+
+### NLTK
+An api we used to detect synonyms of the words, the bot should be able to understand a word if its a synonym of a word it currently knows
 
 ## Chatbot in action
 
