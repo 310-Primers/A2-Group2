@@ -26,7 +26,7 @@ this class stores a list of questions, and our bot will randomly pick one and ou
 
 ## Chatbot in action
 
-The chatbot is able to take user input and give back answers. However each word has to be the exact same match as one of the dictionary's keys to give back the right response.
+The chatbot is able to take user input and give back answers. However each word does not have to be the exact same as the key in the dictionary to give back the right response.
 
 ![image](https://user-images.githubusercontent.com/45835101/159102731-bc2e84cb-25c3-4745-bf22-87a919e66763.png)
 
