@@ -55,11 +55,17 @@ Once done all the user has to type is `exit` for chatbot to terminate.
 
 ## A3 Features
 Handling lack of question mark for questions
+
 Provides more topics like sports and movies
+
 Handling short form requests
+
 Recognizing works of art (use of NER)
+
 Recognizing synonyms, using these to make calculated responses/guess what the user is trying to say
+
 More error handling to guide user input
+
 Ability to ask the user questions, and respond positively or negatively based on simple key words.
 
 ## Looking ahead
