@@ -4,6 +4,7 @@ from Prequestions import questions
 from app import *
 from NerStanza import *
 from POStrack import *
+from Sports import sportquestions
 
 name = "Harvie"
 resp = ""
@@ -50,9 +51,15 @@ def getResponse(question, pq):
         possibleq = ""
         question = question.lower()
         pq = pq.lower()    
-        res = [key for key, val in possible_questions_lower.items() if question[0:-1] in key]
+        res = [key for key, val in possible_questions_lower.items() if question[0:-1] in key] #Dealing with no punctuation at the end
         if question == "bye" or question == "exit":
-            resp = "Thank you for using MovieBot. Have a nice day!" 
+            resp = "Thank you for using MovieBot. Have a nice day!"
+        elif "sports" in question or "sports" in pq:
+            if "sports" in pq:
+                resp = sportquestions.getsportqs(question)
+            else:
+                resp = "Ready for sports questions"
+
         elif question == "ask me a question" or pq == "ask me a question":         
             if pq == "ask me a question":
                 Goodresponses = ["Great", "Awesome!", "Amazing!", "Brilliant!", "Fantastic!"]
@@ -75,9 +82,8 @@ def getResponse(question, pq):
                 randIndex = random.randint(0, len(resp) - 1)
                 resp = resp[randIndex]
         else:
-            if question[-1] != "?":
-                resp = processinput(question)
-            #resp = resp + 
+
+            resp = processinput(question)   #Check if there is any work of art or anything you can identify!
             if resp == "":
                 resp = processpos(question)
                 if len(resp) != 0:
@@ -93,7 +99,7 @@ def getResponse(question, pq):
                     resp = ""
 
             if resp == "":
-                resp = "I don't seem to understand! Please try asking something else. HK"
+                resp = "I don't seem to understand! Please try asking something else."
 
         return resp
     except:

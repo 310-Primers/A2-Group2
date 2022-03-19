@@ -19,18 +19,7 @@ def processinput(msg):
             
         
         #return resp
-        #we can use the POS tagging to find out if user is speaking in past future tense and allow our bot to give a generic response based 
-
-
-        #bot_input = bot_input.lower()
-            #if len(ner_workOfArt)>0:
-             #   print(*[f"{a.name}: I loved",*[f'{token}' for token in ner_workOfArt]])
-    #doc = nlp("Barack Obama was born in Hawaii.") # Run the pipeline on the input text
-    #print(doc) # Look at the result
-    #print(resp)
+        
     resp = ""
     return resp
     
-
-
-#processinput("Barack Obama was born in Hawaii. I enjoyed watching Titanic yesterday")

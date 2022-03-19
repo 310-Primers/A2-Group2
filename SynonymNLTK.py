@@ -4,9 +4,6 @@ from Chatbot import *
 
 
 synonyms = []
-antonyms = []
-
-
 
 def detectsyn(words):
     for word in words:
@@ -17,6 +14,4 @@ def detectsyn(words):
     
     return synonyms
 
-
-detectsyn("phrase")
 
