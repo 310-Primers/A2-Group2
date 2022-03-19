@@ -7,9 +7,9 @@ Harvie, the conversational chatbot, specializes in talking about film - movies, 
 For now, most of the conversation is based on a series of questions being asked by the user and the bot responding back with answers from an array. We also allowed the bot to be able to ask questions to the reader.
 
 ## How to run the bot/install it
-For now, we have not compiled the code to be run as an exectuble program. It currently works using a terminal/command line. We hope to change that in a following sprint cycle.
+For now, we have not compiled the code to be run as an exectuble program. It currently works using a gui
 
-You can clone this remote repository into your own local machine and then run it by either opening `Chatbot.py` (or `code Chatbot.py` in a command line once you navigate to the local repository).You must then compiling/running the file using an IDE or using the command `python Chatbot.py` in the terminal.
+You can clone this remote repository into your own local machine and then run it by either opening `app.py` (or `code app.py a command line once you navigate to the local repository).You must then compiling/running the file using an IDE or using the command `python app` in the terminal.
 
 Note: You will need to have Python installed on your local machine, we recommend having a version *no earlier* than **v 3.9.10**
 
@@ -18,7 +18,7 @@ Note: You will need to have Python installed on your local machine, we recommend
 for now the chatbot is a simple class that saves that creates an object with a name as its only attribute to identify our chatbot.
 
 ### getResponse
-takes the user's input (as lowercase) and tries to identify the string as one of the keys in a dictionary of possible questions. If it matches a key, the coressponding value (the pre-written answer to the question) is returned. If not, a key error is returned and handled.
+takes the user's input (as lowercase) and tries to identify a similar string as in a dictionary of possible questions. If it matches a key, the coressponding value (the pre-written answer to the question) is returned. If not, a key error is returned and handled. the use
 
 ### questions
 this class stores a list of questions, and our bot will randomly pick one and output it to terminal when the user inputs "ask me a question".
@@ -28,21 +28,21 @@ this class stores a list of questions, and our bot will randomly pick one and ou
 
 The chatbot is able to take user input and give back answers. However each word has to be the exact same match as one of the dictionary's keys to give back the right response.
 
-![exactMatch](/screenshots/Screenshot_1.png)
+![image](https://user-images.githubusercontent.com/45835101/159102731-bc2e84cb-25c3-4745-bf22-87a919e66763.png)
+
 
 It does manage to answer the same question regardless of the casing.
-![lowerCase](/screenshots/Screenshot_2.png)
+![image](https://user-images.githubusercontent.com/45835101/159102897-e7f26b04-b109-4d82-8b6c-6080bf55aed6.png)
 
 
 If there is an unexpected input, it is able to return a default message.
-![errorHandling](/screenshots/Screenshot_3.png)
+![image](https://user-images.githubusercontent.com/45835101/159102914-9e01609d-7b8d-44db-8de0-fe1a93d18812.png)
 
 Once done all the user has to type is `exit` for chatbot to terminate.
-![exit](/screenshots/Screenshot_4.png)
+![image](https://user-images.githubusercontent.com/45835101/159102958-bdc379f5-b278-4882-baa5-808fb2f690fc.png)
 
 ## Looking ahead
 We would love to include the following features to our bot:
-- A ui so that the user doesn't have to use a terminal
 - More abilities other than just answering questions such as:
     - quizing the user on movies, tv shows,etc and displaying correct answers at end as a score (trivia mode)
     - being able to give the iMDb synopsis and ratings for a movie using an API
