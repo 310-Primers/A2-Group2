@@ -10,7 +10,6 @@ class Testing(unittest.TestCase):
 
     def test_ask_me_a_question(self):
         a = questions.getquestion()[-1]
-        b = "?"
         self.assertEqual(a, "?")
 
     def test_case(self):
